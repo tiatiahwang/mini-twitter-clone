@@ -4,6 +4,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import withHandler, {
   ResponseType,
 } from '../../../libs/server/withHandler';
+import db from '../../../libs/server/db';
+import { withApiSession } from '../../../libs/server/withSession';
 
 async function handler(
   req: NextApiRequest,
@@ -11,7 +13,7 @@ async function handler(
 ) {
   const { email, password } = req.body;
 
-  const isExist = await db?.user.findUnique({
+  const isExist = await db.user.findUnique({
     where: {
       email,
     },
@@ -27,6 +29,7 @@ async function handler(
     password,
     isExist.password,
   );
+
   if (!isMatch) {
     return res.status(404).json({
       ok: false,
@@ -42,8 +45,10 @@ async function handler(
   res.json({ ok: true });
 }
 
-export default withHandler({
-  methods: ['POST'],
-  handler,
-  isPrivate: false,
-});
+export default withApiSession(
+  withHandler({
+    methods: ['POST'],
+    handler,
+    isPrivate: false,
+  }),
+);

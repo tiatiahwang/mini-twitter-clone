@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import Input from '../components/input';
 import Layout from '../components/layout';
 import Button from '../components/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useMutation from '../libs/client/useMutation';
+import { useRouter } from 'next/router';
 
 interface AccountForm {
   email: string;
@@ -10,13 +12,31 @@ interface AccountForm {
   password: string;
 }
 
+interface MutationResult {
+  ok: boolean;
+  message?: string;
+}
+
 const CreateAccount = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<AccountForm>();
-  const [errorMessage, setErrorMessage] = useState();
+  const [join, { loading, data }] =
+    useMutation<MutationResult>('/api/users/join');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onValid = (validForm: AccountForm) => {
-    console.log(validForm);
+    if (loading) return;
+    join(validForm);
   };
+
+  useEffect(() => {
+    if (!data?.ok) {
+      setErrorMessage(data?.message!);
+    } else {
+      router.push('/log-in');
+    }
+  }, [data]);
+
   return (
     <Layout>
       <div className='space-y-4 w-full'>
@@ -59,7 +79,11 @@ const CreateAccount = () => {
             <Button text='가입하기' large={true} />
           </div>
         </form>
-        <p>{errorMessage}</p>
+        {errorMessage !== '' ? (
+          <p className='text-center text-indigo-700 font-medium'>
+            {errorMessage}
+          </p>
+        ) : null}
       </div>
     </Layout>
   );

@@ -13,7 +13,7 @@ interface LoginForm {
 
 interface MutationResult {
   ok: boolean;
-  error?: string;
+  message?: string;
 }
 
 const Login = () => {
@@ -21,13 +21,20 @@ const Login = () => {
   const { register, handleSubmit } = useForm<LoginForm>();
   const [login, { loading, data }] =
     useMutation<MutationResult>('/api/users/login');
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onValid = (vaildForm: LoginForm) => {
-    console.log(vaildForm);
     if (loading) return;
     login(vaildForm);
   };
+
+  useEffect(() => {
+    if (!data?.ok) {
+      setErrorMessage(data?.message!);
+    } else {
+      router.push('/');
+    }
+  }, [data]);
 
   return (
     <Layout>
@@ -57,11 +64,15 @@ const Login = () => {
               required: true,
             })}
           />
+          {errorMessage !== '' ? (
+            <p className='pt-4 text-center text-indigo-700 font-medium'>
+              {errorMessage}
+            </p>
+          ) : null}
           <div className='pt-4'>
             <Button text='로그인하기' large={true} />
           </div>
         </form>
-        <p>{errorMessage}</p>
         <div className='relative pt-4'>
           <div className='absolute w-full border-t border-indigo-100' />
           <div className='relative -top-3 text-center'>
