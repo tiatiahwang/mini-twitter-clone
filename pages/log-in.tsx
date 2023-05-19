@@ -11,12 +11,22 @@ interface LoginForm {
   password: string;
 }
 
+interface MutationResult {
+  ok: boolean;
+  error?: string;
+}
+
 const Login = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<LoginForm>();
+  const [login, { loading, data }] =
+    useMutation<MutationResult>('/api/users/login');
+  const [errorMessage, setErrorMessage] = useState();
 
   const onValid = (vaildForm: LoginForm) => {
     console.log(vaildForm);
+    if (loading) return;
+    login(vaildForm);
   };
 
   return (
@@ -43,7 +53,7 @@ const Login = () => {
             kind='password'
             type='password'
             required={true}
-            register={register('password ', {
+            register={register('password', {
               required: true,
             })}
           />
@@ -51,6 +61,7 @@ const Login = () => {
             <Button text='로그인하기' large={true} />
           </div>
         </form>
+        <p>{errorMessage}</p>
       </div>
     </Layout>
   );
