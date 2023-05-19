@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <Layout>
       <div className='space-y-4 w-full'>
-        <p className='text-4xl text-indigo-500 font-bold '>
+        <p className='text-4xl text-indigo-500 font-bold'>
           로그인
         </p>
         <form
@@ -62,6 +62,20 @@ const Login = () => {
           </div>
         </form>
         <p>{errorMessage}</p>
+        <div className='relative pt-4'>
+          <div className='absolute w-full border-t border-indigo-100' />
+          <div className='relative -top-3 text-center'>
+            <span className='bg-white px-2 text-sm text-indigo-200'>
+              아직 계정이 없으시다면
+            </span>
+          </div>
+          <Button
+            text={'가입하기'}
+            large={true}
+            transparentBg={true}
+            onClick={() => router.push('/create-account')}
+          />
+        </div>
       </div>
     </Layout>
   );
