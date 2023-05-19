@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/layout';
 import Head from 'next/head';
+import FloatingButton from '../components/floating-button';
 
 const Home = () => {
   return (
@@ -8,9 +9,12 @@ const Home = () => {
       <Head>
         <title>홈</title>
       </Head>
+      <p className='px-4 text-4xl text-indigo-500 font-bold'>
+        홈
+      </p>
       {[1, 1, 1, 1, 1, 1, 1].map((_, i) => (
         <div key={i}>
-          <div className='mx-4 space-y-4 mb-4'>
+          <div className='m-4 space-y-4'>
             <div className='flex items-center space-x-2'>
               <div className='w-10 h-10 rounded-full bg-indigo-100' />
               <span className='text-sm text-gray-500'>
@@ -21,8 +25,8 @@ const Home = () => {
               내용내용내용내용내용내용내용내용내용내용내용내용
             </div>
             <div className='w-full h-[300px] bg-indigo-100' />
-            <div className='flex text-sm text-gray-500'>
-              <div className='flex items-center'>
+            <div className='flex justify-end text-sm text-gray-500'>
+              <div className='flex items-center space-x-1'>
                 <svg
                   className='w-4 h-4'
                   fill='none'
@@ -39,29 +43,11 @@ const Home = () => {
                 </svg>
                 <span>1</span>
               </div>
-              <div className='flex items-center'>
-                <svg
-                  className='w-4 h-4'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
-                  ></path>
-                </svg>
-                <span>1</span>
-              </div>
             </div>
           </div>
           <div className='border-b-[1px] border-indigo-100' />
         </div>
       ))}
-      \
     </Layout>
   );
 };

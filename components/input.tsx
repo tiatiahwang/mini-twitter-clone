@@ -4,7 +4,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 interface InputProps {
   label: string;
   name: string;
-  kind?: 'email' | 'username' | 'password';
+  kind?: 'email' | 'username' | 'password' | 'url';
   type: string;
   register: UseFormRegisterReturn;
   required: boolean;
@@ -43,7 +43,7 @@ export default function Input({
           />
         </div>
       ) : null}
-      {kind === 'username' ? (
+      {kind === 'username' || kind === 'url' ? (
         <div className='flex items-center rounded-md'>
           <input
             type={type}
