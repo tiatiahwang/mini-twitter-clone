@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { cls } from '../libs/client/utils';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -41,7 +39,7 @@ export default function Layout({ children }: LayoutProps) {
           </button>
         </Link>
       </div>
-      <div className='px-4'>{children}</div>
+      <div className='px-4 flex-1'>{children}</div>
     </div>
   );
 }
