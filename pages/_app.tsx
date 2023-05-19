@@ -1,5 +1,6 @@
 import { SWRConfig } from 'swr';
 import '../styles/globals.css';
+import IsLogin from '../components/is-login';
 
 export default function App({ Component, pageProps }: any) {
   return (
@@ -10,6 +11,7 @@ export default function App({ Component, pageProps }: any) {
       }}
     >
       <div className='w-full min-h-screen mx-auto max-w-xl'>
+        <IsLogin />
         <Component {...pageProps} />
       </div>
     </SWRConfig>
