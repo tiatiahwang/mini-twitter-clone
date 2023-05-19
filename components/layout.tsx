@@ -39,7 +39,9 @@ export default function Layout({ children }: LayoutProps) {
           </button>
         </Link>
       </div>
-      <div className='px-4 flex-1'>{children}</div>
+      <div className='flex-1 border-r-[1px] border-indigo-100 text-gray-700'>
+        {children}
+      </div>
     </div>
   );
 }

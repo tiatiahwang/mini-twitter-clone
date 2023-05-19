@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className='space-y-4 w-full'>
+      <div className='px-4 space-y-4 w-full'>
         <p className='text-4xl text-indigo-500 font-bold'>
           로그인
         </p>
