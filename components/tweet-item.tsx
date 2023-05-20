@@ -66,19 +66,21 @@ const TweetItem = (tweet: TweetProps) => {
             </span>
           </span>
         </div>
-        {/* 트윗 내용 */}
         <Link href={`/tweets/${tweet.id}`}>
-          <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600'>
-            {tweet.contents}
-          </div>
+          <>
+            {/* 트윗 내용 */}
+            <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600'>
+              {tweet.contents}
+            </div>
+            {/* 사진 링크 */}
+            {tweet.url !== null ? (
+              <img
+                src={tweet.url}
+                className='w-full h-[300px] object-center cursor-pointer rounded-md border border-indigo-100'
+              />
+            ) : null}
+          </>
         </Link>
-        {/* 사진/동영상 링크 */}
-        {tweet.url !== null ? (
-          <img
-            src={tweet.url}
-            className='w-full h-[300px] object-center'
-          />
-        ) : null}
         {/* 좋아요 */}
         <div
           className={cls(

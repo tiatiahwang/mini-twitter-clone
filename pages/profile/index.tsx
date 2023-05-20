@@ -125,7 +125,7 @@ const Profile = () => {
               )}
             />
             <div className='space-y-2'>
-              <div className='text-xs'>
+              <div className='text-xs text-gray-500'>
                 아바타 색상 선택
               </div>
               <div className='flex space-x-2'>

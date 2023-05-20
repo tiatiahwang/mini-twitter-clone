@@ -10,7 +10,8 @@ export function middleware(
   if (!req.url.includes('/api')) {
     if (
       !req.url.includes('/log-in') &&
-      !req.cookies.clonesession
+      !req.cookies.clonesession &&
+      !req.url.includes('/create-account')
     ) {
       return NextResponse.redirect(
         new URL('/log-in', req.url),

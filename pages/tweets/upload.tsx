@@ -53,7 +53,7 @@ const Upload = () => {
           <Input
             kind='url'
             name='url'
-            label='사진/동영상 URL'
+            label='사진 URL'
             type='text'
             register={register('url')}
             required={false}

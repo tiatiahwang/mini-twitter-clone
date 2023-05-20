@@ -77,7 +77,7 @@ const TweetDetail = () => {
         <div className='text-base whitespace-pre leading-relaxed'>
           {data?.tweet?.contents}
         </div>
-        {/* 사진/동영상 링크 */}
+        {/* 사진 링크 */}
         {data?.tweet?.url !== null ? (
           <img
             src={data?.tweet?.url!}
