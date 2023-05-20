@@ -22,20 +22,31 @@ async function handler(
   }
   if (req.method === 'POST') {
     const {
-      body: { email, username, password },
+      body: { email, username, password, avatar },
       session: { user },
     } = req;
     if (
       email === '' &&
       username === '' &&
-      password === ''
+      password === '' &&
+      avatar === ''
     ) {
       return res.status(400).json({
         ok: false,
         message: '수정할 내용이 없어요 🥲',
       });
     }
-
+    if (avatar) {
+      await db.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          avatar,
+        },
+      });
+      res.json({ ok: true });
+    }
     if (email) {
       const isExist = Boolean(
         await db.user.findUnique({

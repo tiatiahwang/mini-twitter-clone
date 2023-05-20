@@ -25,7 +25,7 @@ const TweetItem = (tweet: TweetProps) => {
   const onFavClick = () => {
     if (!tweet) return;
     mutate(
-      `/api/tweets`,
+      '/api/tweets',
       (prev: any) => ({
         tweets: prev.tweets.map((prevTweet: any) =>
           prevTweet.id === tweet.id
@@ -51,7 +51,14 @@ const TweetItem = (tweet: TweetProps) => {
       <div className='m-4 space-y-4'>
         {/* 유저 아바타/이름 */}
         <div className='flex items-center space-x-2'>
-          <div className='w-10 h-10 rounded-full bg-indigo-100' />
+          <div
+            className={cls(
+              'w-10 h-10 rounded-full',
+              tweet.user.avatar
+                ? `${tweet.user.avatar}`
+                : 'bg-indigo-100',
+            )}
+          />
           <span className='text-sm text-gray-500'>
             {tweet.user.name} ·{' '}
             <span className='text-xs'>

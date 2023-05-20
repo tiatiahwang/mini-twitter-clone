@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import useMutation from '../../libs/client/useMutation';
 import { useRouter } from 'next/router';
 import useUser from '../../libs/client/useUser';
+import { cls } from '../../libs/client/utils';
 
 interface ProfileForm {
   email?: string;
   username?: string;
   password?: string;
+  avatar?: string;
 }
 
 interface MutationResult {
@@ -30,16 +32,32 @@ const Profile = () => {
     { loading: logoutLoading, data: logoutStatus },
   ] = useMutation<MutationResult>('/api/users/logout');
   const [errorMessage, setErrorMessage] = useState('');
+  const [avatarColor, setAvatarColor] = useState(
+    user?.avatar,
+  );
 
-  const onValid = (validForm: ProfileForm) => {
+  const onValid = ({
+    email,
+    password,
+    username,
+    avatar,
+  }: ProfileForm) => {
     if (loading) return;
-    if (validForm.email === user?.email) {
-      validForm.email = '';
+    if (email === user?.email) {
+      email = '';
     }
-    if (validForm.username === user?.name) {
-      validForm.username = '';
+    if (username === user?.name) {
+      username = '';
     }
-    editProfile(validForm);
+    if (avatar === user?.avatar) {
+      avatar = '';
+    }
+    editProfile({
+      email,
+      password,
+      username,
+      avatar: avatarColor,
+    });
   };
 
   useEffect(() => {
@@ -73,6 +91,92 @@ const Profile = () => {
           className='space-y-4'
           onSubmit={handleSubmit(onValid)}
         >
+          <div className='flex justify-between space-x-4'>
+            <div
+              className={cls(
+                'w-20 h-20 rounded-full cursor-pointer',
+                avatarColor
+                  ? `${avatarColor}`
+                  : 'bg-indigo-100',
+              )}
+            />
+            <div className='space-y-2'>
+              <div className='text-xs'>
+                아바타 색상 선택
+              </div>
+              <div className='flex space-x-2'>
+                <div className='w-6 h-6 bg-indigo-100 rounded-full cursor-pointer' />
+                <div
+                  className='w-6 h-6 bg-indigo-200 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-indigo-200')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-indigo-300 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-indigo-300')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-indigo-400 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-indigo-400')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-indigo-500 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-indigo-500')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-indigo-600 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-indigo-600')
+                  }
+                />
+              </div>
+              <div className='flex space-x-2'>
+                <div
+                  className='w-6 h-6 bg-pink-100 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-pink-100')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-pink-200 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-pink-200')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-pink-300 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-pink-300')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-pink-400 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-pink-400')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-pink-500 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-pink-500')
+                  }
+                />
+                <div
+                  className='w-6 h-6 bg-pink-600 rounded-full cursor-pointer'
+                  onClick={() =>
+                    setAvatarColor('bg-pink-600')
+                  }
+                />
+              </div>
+            </div>
+          </div>
           <Input
             label='이메일'
             name='email'
@@ -112,12 +216,6 @@ const Profile = () => {
             large={true}
             transparentBg={true}
             onClick={onClickLogout}
-          />
-          <Button
-            text={'탈퇴하기'}
-            large={true}
-            transparentBg={true}
-            onClick={() => router.push('/create-account')}
           />
         </div>
       </div>

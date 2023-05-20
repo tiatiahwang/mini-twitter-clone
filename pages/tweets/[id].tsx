@@ -58,7 +58,14 @@ const TweetDetail = () => {
       <div className='m-4 space-y-4'>
         {/* 유저 아바타/이름 */}
         <div className='flex items-center space-x-2'>
-          <div className='w-10 h-10 rounded-full bg-indigo-100' />
+          <div
+            className={cls(
+              'w-10 h-10 rounded-full',
+              data?.tweet?.user?.avatar
+                ? `${data?.tweet?.user?.avatar}`
+                : 'bg-indigo-100',
+            )}
+          />
           <span className='text-sm text-gray-500'>
             {data?.tweet?.user?.name} ·{' '}
             <span className='text-xs'>
