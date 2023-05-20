@@ -9,18 +9,22 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>,
 ) {
-  const profile = await db.user.findUnique({
-    where: { id: req.session.user?.id },
-  });
-  res.json({
-    ok: true,
-    profile,
-  });
+  const {
+    session: { user },
+  } = req;
+  if (!user) {
+    return res
+      .status(403)
+      .json({ ok: false, message: '잘못된 요청입니다.' });
+  }
+
+  await req.session.destroy();
+  res.json({ ok: true });
 }
 
 export default withApiSession(
   withHandler({
-    methods: ['GET'],
+    methods: ['POST'],
     handler,
   }),
 );

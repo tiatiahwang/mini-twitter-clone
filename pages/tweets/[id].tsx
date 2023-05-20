@@ -31,7 +31,6 @@ const TweetDetail = () => {
     `/api/tweets/${data?.tweet.id}/fav`,
   );
   const onFavClick = () => {
-    console.log('');
     if (!data) return;
     mutate(
       {
