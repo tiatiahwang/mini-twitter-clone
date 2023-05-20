@@ -10,6 +10,9 @@ async function handler(
   res: NextApiResponse<ResponseType>,
 ) {
   if (req.method === 'GET') {
+    const {
+      session: { user },
+    } = req;
     const tweets = await db.tweet.findMany({
       include: {
         user: {
@@ -19,11 +22,34 @@ async function handler(
             avatar: true,
           },
         },
+        _count: {
+          select: {
+            favorites: true,
+          },
+        },
+        favorites: {
+          select: {
+            userId: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
+    const includeIsLiked = tweets.map((tweet: any) => ({
+      ...tweet,
+      isLiked:
+        tweet.favorites.filter(
+          (favorite: any) => favorite.userId === user?.id,
+        ).length === 1
+          ? true
+          : false,
+    }));
+
     res.json({
       ok: true,
-      tweets,
+      tweets: includeIsLiked,
     });
   }
   if (req.method === 'POST') {

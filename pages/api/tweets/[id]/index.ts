@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withApiSession } from '../../../libs/server/withSession';
+import { withApiSession } from '../../../../libs/server/withSession';
 import withHandler, {
   ResponseType,
-} from '../../../libs/server/withHandler';
-import db from '../../../libs/server/db';
+} from '../../../../libs/server/withHandler';
+import db from '../../../../libs/server/db';
 
 async function handler(
   req: NextApiRequest,
@@ -11,6 +11,7 @@ async function handler(
 ) {
   const {
     query: { id },
+    session: { user },
   } = req;
   const tweet = await db.tweet.findFirst({
     where: {
@@ -26,9 +27,21 @@ async function handler(
       },
     },
   });
+  const isLiked = Boolean(
+    await db.favorite.findFirst({
+      where: {
+        tweetId: +id.toString(),
+        userId: user?.id,
+      },
+      select: {
+        id: true,
+      },
+    }),
+  );
+  const includeIsLiked = { ...tweet, isLiked };
   res.json({
     ok: true,
-    tweet,
+    tweet: includeIsLiked,
   });
 }
 
