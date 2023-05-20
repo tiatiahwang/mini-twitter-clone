@@ -1,6 +1,5 @@
 import { SWRConfig } from 'swr';
 import '../styles/globals.css';
-import IsLogin from '../components/is-login';
 
 export default function App({ Component, pageProps }: any) {
   return (
@@ -10,9 +9,8 @@ export default function App({ Component, pageProps }: any) {
           fetch(url).then((response) => response.json()),
       }}
     >
-      <div className='w-full min-h-screen text-gray-700 bg-[#F5F5F5] dark:text-white dark:bg-[#111827]'>
+      <div className='w-full min-h-screen text-gray-700 bg-[#F5F5F5] dark:text-white dark:bg-[#111827] fixed inset-0 overflow-auto'>
         <div className='mx-auto max-w-xl bg-[#f9f9f9] dark:bg-[#1F2937]'>
-          <IsLogin />
           <Component {...pageProps} />
         </div>
       </div>

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import useMutation from '../libs/client/useMutation';
 import Input from '../components/input';
 import Button from '../components/button';
+import useUser from '../libs/client/useUser';
 
 interface LoginForm {
   email: string;
@@ -28,13 +29,14 @@ const Login = () => {
     login(vaildForm);
   };
 
+  const { user } = useUser();
   useEffect(() => {
     if (!data?.ok) {
       setErrorMessage(data?.message!);
     } else {
       router.push('/');
     }
-  }, [data]);
+  }, [data, router, user]);
 
   return (
     <Layout title='로그인'>

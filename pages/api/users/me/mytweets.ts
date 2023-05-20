@@ -40,7 +40,6 @@ async function handler(
       createdAt: 'desc',
     },
   });
-  console.log(tweets);
   const includeIsLiked = tweets.map((tweet: any) => ({
     ...tweet,
     isLiked:
