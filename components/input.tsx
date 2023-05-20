@@ -77,7 +77,7 @@ export default function Input({
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-5 h-5 text-indigo-300'
+                className='w-5 h-5 text-indigo-300 dark:text-gray-300'
               >
                 <path
                   strokeLinecap='round'
@@ -97,7 +97,7 @@ export default function Input({
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-5 h-5 text-indigo-300'
+                className='w-5 h-5 text-indigo-300 dark:text-gray-300'
               >
                 <path
                   strokeLinecap='round'

@@ -37,11 +37,8 @@ const Login = () => {
   }, [data]);
 
   return (
-    <Layout>
+    <Layout title='로그인'>
       <div className='px-4 space-y-4 w-full'>
-        <p className='text-4xl text-indigo-500 font-bold'>
-          로그인
-        </p>
         <form
           className='space-y-4'
           onSubmit={handleSubmit(onValid)}
@@ -74,9 +71,9 @@ const Login = () => {
           </div>
         </form>
         <div className='relative pt-4'>
-          <div className='absolute w-full border-t border-indigo-100' />
+          <div className='absolute w-full border-t border-indigo-100 dark:border-gray-100' />
           <div className='relative -top-3 text-center'>
-            <span className='bg-white px-2 text-sm text-indigo-200'>
+            <span className='bg-[#f9f9f9] px-2 text-sm text-indigo-200 dark:text-gray-200 dark:bg-[#1F2937]'>
               아직 계정이 없으시다면
             </span>
           </div>

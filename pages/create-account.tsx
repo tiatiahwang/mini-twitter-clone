@@ -38,11 +38,8 @@ const CreateAccount = () => {
   }, [data]);
 
   return (
-    <Layout>
+    <Layout title='가입하기'>
       <div className='px-4 space-y-4 w-full'>
-        <p className='text-4xl text-indigo-500 font-bold'>
-          가입하기
-        </p>
         <form
           className='space-y-4'
           onSubmit={handleSubmit(onValid)}

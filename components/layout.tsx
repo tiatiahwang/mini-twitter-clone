@@ -30,39 +30,41 @@ export default function Layout({
             noBottomMargin ? '' : 'pb-4',
           )}
         >
-          {canGoBack ? (
-            <button
-              onClick={onClick}
-              className='text-indigo-500 dark:text-gray-500'
-            >
-              <svg
-                className='h-6 w-6'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='3'
-                  d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18'
-                ></path>
-              </svg>
-            </button>
-          ) : null}
           <div className='flex justify-between'>
-            {title ? (
-              <span
-                className={cls(
-                  'text-4xl text-indigo-500 dark:text-gray-300 font-bold',
-                  canGoBack ? 'pl-4' : '',
-                  '',
-                )}
-              >
-                {title}
-              </span>
-            ) : null}
+            <div>
+              {canGoBack ? (
+                <button
+                  onClick={onClick}
+                  className='text-indigo-500 dark:text-gray-300'
+                >
+                  <svg
+                    className='h-6 w-6'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='3'
+                      d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18'
+                    ></path>
+                  </svg>
+                </button>
+              ) : null}
+              {title ? (
+                <span
+                  className={cls(
+                    'text-4xl text-indigo-500 dark:text-gray-300 font-bold',
+                    canGoBack ? 'pl-4' : '',
+                    '',
+                  )}
+                >
+                  {title}
+                </span>
+              ) : null}
+            </div>
             <ToggleMode />
           </div>
         </div>

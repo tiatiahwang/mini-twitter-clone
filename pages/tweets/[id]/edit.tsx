@@ -1,46 +1,61 @@
 import { useForm } from 'react-hook-form';
-import Input from '../../components/input';
-import Layout from '../../components/layout';
-import TextArea from '../../components/textarea';
-import Button from '../../components/button';
-import useMutation from '../../libs/client/useMutation';
-import { useEffect } from 'react';
-import { Tweet } from '@prisma/client';
+import Input from '../../../components/input';
+import Layout from '../../../components/layout';
+import TextArea from '../../../components/textarea';
+import Button from '../../../components/button';
+import useMutation from '../../../libs/client/useMutation';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
-interface UploadTweetForm {
-  contents: string;
-  url: FileList;
+interface EditTweetForm {
+  contents: string | string[];
+  url: string | string[];
 }
 
-interface UploadTweetMutation {
+interface EditTweetMutation {
   ok: boolean;
-  tweet: Tweet;
+  message?: string;
 }
 
-const Upload = () => {
+const EditTweet = () => {
   const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UploadTweetForm>();
-  const [upload, { loading, data }] =
-    useMutation<UploadTweetMutation>('/api/tweets');
+    setValue,
+  } = useForm<EditTweetForm>();
+  const [edit, { loading, data }] =
+    useMutation<EditTweetMutation>(
+      `/api/tweets/${router.query.id}/edit`,
+    );
 
-  const onValid = (validForm: UploadTweetForm) => {
+  const onValid = ({ contents, url }: EditTweetForm) => {
     if (loading) return;
-    upload(validForm);
+
+    edit({ contents, url });
   };
 
   useEffect(() => {
-    if (data?.ok) {
-      router.push(`/tweets/${data.tweet.id}`);
+    if (!router.query) return;
+    const {
+      query: { contents, url },
+    } = router;
+    if (contents) setValue('contents', contents);
+    if (url) setValue('url', url);
+  }, [router, setValue]);
+
+  useEffect(() => {
+    if (data && data?.ok) {
+      router.push(`/tweets/${router.query.id}`);
     }
   }, [data]);
-
   return (
-    <Layout title='트윗하기'>
+    <Layout title='트윗 수정하기'>
+      <Head>
+        <title>트윗수정</title>
+      </Head>
       <div className='px-4 space-y-4 w-full'>
         <form
           className='space-y-4'
@@ -71,9 +86,9 @@ const Upload = () => {
           <div className='pt-4'>
             <Button text='트윗하기' large={true} />
           </div>
-          {errors ? (
+          {errors?.url ? (
             <p className='text-indigo-700 font-medium dark:text-gray-400 text-center'>
-              {errors.url?.message}
+              {errors.url.message}
             </p>
           ) : null}
         </form>
@@ -82,4 +97,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default EditTweet;

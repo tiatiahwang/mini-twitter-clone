@@ -59,26 +59,33 @@ const TweetItem = (tweet: TweetProps) => {
                 : 'bg-indigo-100',
             )}
           />
-          <span className='text-sm text-gray-500'>
-            {tweet.user.name} ·{' '}
-            {useTimeFormat(tweet.createdAt)}
-          </span>
+          <div className='flex flex-col'>
+            <span className='text-base text-gray-500 dark:text-gray-200'>
+              {tweet.user.name}
+            </span>
+            <span className='text-xs text-gray-500 dark:text-gray-200'>
+              {useTimeFormat(tweet.createdAt!)}
+            </span>
+          </div>
         </div>
+        {/* 트윗 내용 */}
         <Link href={`/tweets/${tweet.id}`}>
-          <>
-            {/* 트윗 내용 */}
-            <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600 dark:hover:text-gray-400'>
-              {tweet.contents}
-            </div>
-            {/* 사진 링크 */}
-            {tweet.url !== null ? (
-              <img
-                src={tweet.url}
-                className='w-full h-[300px] object-center cursor-pointer rounded-md border border-indigo-100 dark:border-gray-400'
-              />
-            ) : null}
-          </>
+          <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600 dark:hover:text-gray-400'>
+            {tweet.contents}
+          </div>
         </Link>
+        {/* 사진 링크 */}
+        <Link href={`/tweets/${tweet.id}`}>
+          {tweet.url !== null ? (
+            <img
+              src={tweet.url}
+              className='w-full h-[300px] object-center cursor-pointer rounded-md border border-indigo-100 dark:border-gray-400'
+            />
+          ) : (
+            <div></div>
+          )}
+        </Link>
+
         {/* 좋아요 */}
         <div
           className={cls(
