@@ -7,6 +7,7 @@ import useMutation from '../../libs/client/useMutation';
 import { useRouter } from 'next/router';
 import useUser from '../../libs/client/useUser';
 import { cls } from '../../libs/client/utils';
+import Link from 'next/link';
 
 interface ProfileForm {
   email?: string;
@@ -87,6 +88,29 @@ const Profile = () => {
   return (
     <Layout title='프로필'>
       <div className='px-4 space-y-4 w-full'>
+        <Link href='/profile/mytweets'>
+          <div className='border-b-[1px] border-indigo-100 pb-4 flex items-center space-x-2 cursor-pointer text-indigo-500 hover:text-indigo-600'>
+            <span className='text-base font-medium'>
+              내가 쓴 트윗
+            </span>
+            <div>
+              <svg
+                className='w-4 h-4'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3'
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </Link>
         <form
           className='space-y-4'
           onSubmit={handleSubmit(onValid)}
