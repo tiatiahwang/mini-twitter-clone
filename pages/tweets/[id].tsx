@@ -1,26 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Head from 'next/head';
 import Layout from '../../components/layout';
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import useTimeFormat from '../../libs/client/useTimeFormat';
+import { Tweet, User } from '@prisma/client';
 
-const Home = () => {
+interface TweetDetailWithUser extends Tweet {
+  user: User;
+}
+
+interface TweetDetailResponse {
+  ok: boolean;
+  tweet: TweetDetailWithUser;
+}
+
+const TweetDetail = () => {
+  const router = useRouter();
+  const { data } = useSWR<TweetDetailResponse>(
+    router.query.id
+      ? `/api/tweets/${router.query.id}`
+      : null,
+  );
+  useEffect(() => {
+    if (data?.ok) console.log(data);
+  }, [data]);
   return (
     <Layout title='트윗' canGoBack={true}>
       <Head>
         <title>트윗상세</title>
       </Head>
-
       <div className='m-4 space-y-4'>
+        {/* 유저 아바타/이름 */}
         <div className='flex items-center space-x-2'>
           <div className='w-10 h-10 rounded-full bg-indigo-100' />
           <span className='text-sm text-gray-500'>
-            유저네임 | 15시간전
+            {data?.tweet?.user?.name} ·{' '}
+            <span className='text-xs'>
+              {useTimeFormat(data?.tweet?.createdAt!)}
+            </span>
           </span>
         </div>
-        <div className='text-base'>
-          내용내용내용내용내용내용내용내용내용내용내용내용
+        {/* 트윗 내용 */}
+        <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600'>
+          {data?.tweet?.contents}
         </div>
-        <div className='w-full h-[300px] bg-indigo-100' />
+        {/* 사진/동영상 링크 */}
+        {data?.tweet?.url !== null ? (
+          <div className='w-full h-[300px] bg-indigo-100' />
+        ) : null}
+        {/* 좋아요 */}
         <div className='flex justify-end text-sm text-gray-500'>
           <div className='flex items-center space-x-1'>
             <svg
@@ -45,4 +75,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TweetDetail;
