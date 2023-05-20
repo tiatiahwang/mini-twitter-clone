@@ -1,10 +1,24 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { cls } from '../libs/client/utils';
 
 interface LayoutProps {
+  title?: string;
+  canGoBack?: boolean;
+  noBottomMargin?: boolean;
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({
+  title,
+  canGoBack,
+  noBottomMargin = false,
+  children,
+}: LayoutProps) {
+  const router = useRouter();
+  const onClick = () => {
+    router.back();
+  };
   return (
     <div className='flex min-h-screen pt-4'>
       <div className='fixed min-h-screen w-[50px] flex flex-col items-center border-r-[1px] border-indigo-100 px-4 space-y-4'>
@@ -58,6 +72,45 @@ export default function Layout({ children }: LayoutProps) {
         </Link>
       </div>
       <div className='flex-1 pl-[50px] border-r-[1px] border-indigo-100 text-gray-700'>
+        <div
+          className={cls(
+            'px-4',
+            noBottomMargin ? '' : 'pb-4',
+          )}
+        >
+          {canGoBack ? (
+            <button
+              onClick={onClick}
+              className='text-indigo-500'
+            >
+              <svg
+                className='h-6 w-6'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='3'
+                  d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18'
+                ></path>
+              </svg>
+            </button>
+          ) : null}
+          {title ? (
+            <span
+              className={cls(
+                'text-4xl text-indigo-500 font-bold',
+                canGoBack ? 'pl-4' : '',
+                '',
+              )}
+            >
+              {title}
+            </span>
+          ) : null}
+        </div>
         {children}
       </div>
     </div>

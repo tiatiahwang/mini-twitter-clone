@@ -1,30 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/layout';
 import Head from 'next/head';
-import FloatingButton from '../components/floating-button';
+import { Tweet, User } from '@prisma/client';
+import useSWR from 'swr';
+import { NextPage } from 'next';
+import useTimeFormat from '../libs/client/useTimeFormat';
+import Link from 'next/link';
 
-const Home = () => {
+interface TweetWithUser extends Tweet {
+  user: User;
+}
+
+interface TweetResponse {
+  ok: boolean;
+  tweets: TweetWithUser[];
+}
+
+const Home: NextPage = () => {
+  const { data } = useSWR<TweetResponse>('/api/tweets');
+  useEffect(() => {
+    if (data?.ok) console.log(data.tweets);
+  }, [data]);
   return (
-    <Layout>
+    <Layout title='홈' noBottomMargin={true}>
       <Head>
         <title>홈</title>
       </Head>
-      <p className='px-4 text-4xl text-indigo-500 font-bold'>
-        홈
-      </p>
-      {[1, 1, 1, 1, 1, 1, 1].map((_, i) => (
-        <div key={i}>
+      {data?.tweets?.map((tweet) => (
+        <div key={tweet.id}>
           <div className='m-4 space-y-4'>
+            {/* 유저 아바타/이름 */}
             <div className='flex items-center space-x-2'>
               <div className='w-10 h-10 rounded-full bg-indigo-100' />
               <span className='text-sm text-gray-500'>
-                유저네임 | 15시간전
+                {tweet.user.name} ·{' '}
+                <span className='text-xs'>
+                  {useTimeFormat(tweet.createdAt)}
+                </span>
               </span>
             </div>
-            <div className='text-base'>
-              내용내용내용내용내용내용내용내용내용내용내용내용
-            </div>
-            <div className='w-full h-[300px] bg-indigo-100' />
+            {/* 트윗 내용 */}
+            <Link href={`/tweets/${tweet.id}`}>
+              <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600'>
+                {tweet.contents}
+              </div>
+            </Link>
+            {/* 사진/동영상 링크 */}
+            {tweet.url !== null ? (
+              <div className='w-full h-[300px] bg-indigo-100' />
+            ) : null}
+            {/* 좋아요 */}
             <div className='flex justify-end text-sm text-gray-500'>
               <div className='flex items-center space-x-1'>
                 <svg
