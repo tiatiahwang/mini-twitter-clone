@@ -158,8 +158,8 @@ const TweetDetail = () => {
         {/* 사진 링크 */}
         {data?.tweet?.url !== null ? (
           <img
-            src={data?.tweet?.url!}
-            className='w-full h-[300px] object-center'
+            src={data?.tweet?.url}
+            className='w-full h-[300px] object-center cursor-pointer rounded-md border border-indigo-100 dark:border-gray-400'
           />
         ) : null}
         {/* 좋아요 */}

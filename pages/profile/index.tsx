@@ -87,7 +87,7 @@ const Profile = () => {
 
   return (
     <Layout title='프로필'>
-      <div className='px-4 space-y-4 w-full'>
+      <div className='px-4 pt-4 space-y-4 w-full'>
         <Link href='/profile/mytweets'>
           <div className='border-b-[1px] border-indigo-100 pb-4 flex items-center space-x-2 cursor-pointer text-indigo-500 hover:text-indigo-600'>
             <span className='text-base font-medium'>

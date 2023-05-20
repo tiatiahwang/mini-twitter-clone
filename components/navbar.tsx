@@ -4,7 +4,7 @@ import useUser from '../libs/client/useUser';
 const NavBar = () => {
   const { user } = useUser();
   return (
-    <div className='fixed min-h-screen w-[60px] flex flex-col items-center border-r-[1px] border-indigo-100 dark:border-gray-400 px-4 space-y-4'>
+    <div className='fixed min-h-screen w-[60px] flex flex-col items-center border-r-[1px] border-indigo-100 dark:border-gray-400 px-4 pt-2 space-y-4'>
       <Link href='/'>
         <button className='text-indigo-300 dark:text-gray-300 hover:text-indigo-400 dark:hover:text-gray-400'>
           <svg

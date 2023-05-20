@@ -39,7 +39,7 @@ const CreateAccount = () => {
 
   return (
     <Layout title='가입하기'>
-      <div className='px-4 space-y-4 w-full'>
+      <div className='px-4 pt-4 space-y-4 w-full'>
         <form
           className='space-y-4'
           onSubmit={handleSubmit(onValid)}

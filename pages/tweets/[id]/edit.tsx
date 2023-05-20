@@ -56,7 +56,7 @@ const EditTweet = () => {
       <Head>
         <title>트윗수정</title>
       </Head>
-      <div className='px-4 space-y-4 w-full'>
+      <div className='px-4 pt-4 space-y-4 w-full'>
         <form
           className='space-y-4'
           onSubmit={handleSubmit(onValid)}

@@ -26,7 +26,7 @@ const MyTweets = () => {
   return (
     <Layout title={`${user?.name}님의 트윗`} canGoBack>
       {data?.tweets?.length === 0 ? (
-        <div className='text-base px-4 text-indigo-400'>
+        <div className='text-base px-4 pt-4 text-indigo-400'>
           <p>아직 남기신 트윗이 없어요 😭</p>
           <p>트윗을 남기러 가보실까요?</p>
           <Link href='/tweets/upload'>

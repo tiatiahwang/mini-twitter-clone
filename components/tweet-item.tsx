@@ -85,7 +85,6 @@ const TweetItem = (tweet: TweetProps) => {
             <div></div>
           )}
         </Link>
-
         {/* 좋아요 */}
         <div
           className={cls(

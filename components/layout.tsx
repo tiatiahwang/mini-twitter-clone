@@ -4,16 +4,14 @@ import NavBar from './navbar';
 import ToggleMode from './toggle-mode';
 
 interface LayoutProps {
-  title?: string;
+  title: string;
   canGoBack?: boolean;
-  noBottomMargin?: boolean;
   children: React.ReactNode;
 }
 
 export default function Layout({
   title,
   canGoBack,
-  noBottomMargin = false,
   children,
 }: LayoutProps) {
   const router = useRouter();
@@ -21,16 +19,11 @@ export default function Layout({
     router.back();
   };
   return (
-    <div className='flex min-h-screen pt-4'>
+    <div className='flex min-h-screen'>
       <NavBar />
       <div className='flex-1 pl-[60px]'>
-        <div
-          className={cls(
-            'px-4',
-            noBottomMargin ? '' : 'pb-4',
-          )}
-        >
-          <div className='flex justify-between'>
+        <div className='px-4 py-2 sticky top-0 z-50 w-full bg-[#f9f9f9] dark:bg-[#1F2937] shadow-sm dark:shadow-md'>
+          <div className='flex justify-between items-center'>
             <div>
               {canGoBack ? (
                 <button
@@ -65,10 +58,12 @@ export default function Layout({
                 </span>
               ) : null}
             </div>
-            <ToggleMode />
+            <div>
+              <ToggleMode />
+            </div>
           </div>
         </div>
-        {children}
+        <div>{children}</div>
       </div>
     </div>
   );
