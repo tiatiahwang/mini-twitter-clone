@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import Layout from '../components/layout';
 import Head from 'next/head';
 import { Tweet, User } from '@prisma/client';
@@ -18,9 +17,6 @@ interface TweetResponse {
 
 const Home: NextPage = () => {
   const { data } = useSWR<TweetResponse>('/api/tweets');
-  useEffect(() => {
-    if (data?.ok) console.log(data.tweets);
-  }, [data]);
   return (
     <Layout title='홈' noBottomMargin={true}>
       <Head>

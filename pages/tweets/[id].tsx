@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 import Head from 'next/head';
 import Layout from '../../components/layout';
 import useSWR from 'swr';
@@ -23,9 +21,6 @@ const TweetDetail = () => {
       ? `/api/tweets/${router.query.id}`
       : null,
   );
-  useEffect(() => {
-    if (data?.ok) console.log(data);
-  }, [data]);
   return (
     <Layout title='트윗' canGoBack={true}>
       <Head>

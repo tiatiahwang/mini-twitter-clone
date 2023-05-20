@@ -10,9 +10,11 @@ export default function App({ Component, pageProps }: any) {
           fetch(url).then((response) => response.json()),
       }}
     >
-      <div className='w-full min-h-screen mx-auto max-w-xl'>
-        <IsLogin />
-        <Component {...pageProps} />
+      <div className='w-full min-h-screen text-gray-700 bg-[#F5F5F5]'>
+        <div className='mx-auto max-w-xl bg-[#f9f9f9]'>
+          <IsLogin />
+          <Component {...pageProps} />
+        </div>
       </div>
     </SWRConfig>
   );

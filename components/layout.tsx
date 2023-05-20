@@ -71,7 +71,7 @@ export default function Layout({
           </button>
         </Link>
       </div>
-      <div className='flex-1 pl-[50px] border-r-[1px] border-indigo-100 text-gray-700'>
+      <div className='flex-1 pl-[50px]'>
         <div
           className={cls(
             'px-4',
