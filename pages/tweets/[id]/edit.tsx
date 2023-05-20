@@ -4,7 +4,7 @@ import Layout from '../../../components/layout';
 import TextArea from '../../../components/textarea';
 import Button from '../../../components/button';
 import useMutation from '../../../libs/client/useMutation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 

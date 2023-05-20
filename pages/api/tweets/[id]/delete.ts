@@ -10,16 +10,11 @@ async function handler(
   res: NextApiResponse<ResponseType>,
 ) {
   const {
-    body: { contents, url },
     query: { id },
   } = req;
-  await db.tweet.update({
+  await db.tweet.delete({
     where: {
       id: +id.toString(),
-    },
-    data: {
-      contents,
-      url: url === '' ? null : url,
     },
   });
   res.json({

@@ -8,6 +8,7 @@ import { cls } from '../../../libs/client/utils';
 import useMutation from '../../../libs/client/useMutation';
 import useUser from '../../../libs/client/useUser';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 interface TweetDetailWithUser extends Tweet {
   user: User;
@@ -22,6 +23,10 @@ interface TweetDetailResponse {
   tweet: TweetDetailWithUser;
 }
 
+interface MutationResult {
+  ok: boolean;
+}
+
 const TweetDetail = () => {
   const { user } = useUser();
   const router = useRouter();
@@ -30,9 +35,12 @@ const TweetDetail = () => {
       ? `/api/tweets/${router.query.id}`
       : null,
   );
+  const [deleteTweet, { loading, data: deleteStatus }] =
+    useMutation(`/api/tweets/${router.query.id}/delete`);
   const [toggleFav] = useMutation(
     `/api/tweets/${data?.tweet.id}/fav`,
   );
+
   const onFavClick = () => {
     if (!data) return;
     mutate(
@@ -52,6 +60,20 @@ const TweetDetail = () => {
     );
     toggleFav({});
   };
+
+  const onClickDelete = () => {
+    const check = confirm('정말로 삭제하시겠어요?');
+    if (check) {
+      if (loading) return;
+      deleteTweet({});
+    }
+  };
+
+  useEffect(() => {
+    if (deleteStatus && deleteStatus?.ok) {
+      router.push('/');
+    }
+  }, [deleteStatus, router]);
 
   return (
     <Layout title='트윗' canGoBack={true}>
@@ -107,7 +129,10 @@ const TweetDetail = () => {
                   </svg>
                 </button>
               </Link>
-              <button className='hover:text-indigo-500 hover:dark:text-gray-500'>
+              <button
+                className='hover:text-indigo-500 hover:dark:text-gray-500'
+                onClick={onClickDelete}
+              >
                 <svg
                   className='w-5 h-5'
                   fill='none'
