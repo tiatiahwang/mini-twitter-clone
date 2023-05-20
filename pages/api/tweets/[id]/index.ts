@@ -25,6 +25,11 @@ async function handler(
           avatar: true,
         },
       },
+      _count: {
+        select: {
+          favorites: true,
+        },
+      },
     },
   });
   const isLiked = Boolean(

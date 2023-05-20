@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import useTimeFormat from '../libs/client/useTimeFormat';
 import useMutation from '../libs/client/useMutation';
-import useSWR, { useSWRConfig } from 'swr';
+import { useSWRConfig } from 'swr';
 import { cls } from '../libs/client/utils';
 
 interface TweetProps {
