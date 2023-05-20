@@ -74,12 +74,15 @@ const TweetDetail = () => {
           </span>
         </div>
         {/* 트윗 내용 */}
-        <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600'>
+        <div className='text-base whitespace-pre leading-relaxed'>
           {data?.tweet?.contents}
         </div>
         {/* 사진/동영상 링크 */}
         {data?.tweet?.url !== null ? (
-          <div className='w-full h-[300px] bg-indigo-100' />
+          <img
+            src={data?.tweet?.url!}
+            className='w-full h-[300px] object-center'
+          />
         ) : null}
         {/* 좋아요 */}
         <div

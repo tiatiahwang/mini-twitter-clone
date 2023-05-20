@@ -74,7 +74,10 @@ const TweetItem = (tweet: TweetProps) => {
         </Link>
         {/* 사진/동영상 링크 */}
         {tweet.url !== null ? (
-          <div className='w-full h-[300px] bg-indigo-100' />
+          <img
+            src={tweet.url}
+            className='w-full h-[300px] object-center'
+          />
         ) : null}
         {/* 좋아요 */}
         <div
