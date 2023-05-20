@@ -26,7 +26,7 @@ export default function Input({
   return (
     <div>
       <label
-        className='mb-2 block text-base font-medium text-indigo-200'
+        className='mb-2 block text-base font-medium text-indigo-200 dark:text-gray-200'
         htmlFor={name}
       >
         {label}
@@ -38,8 +38,8 @@ export default function Input({
             id={name}
             required={required}
             {...register}
-            className='text-indigo-500 w-full appearance-none rounded-md border border-indigo-200 px-3 py-2 
-            focus:border-indigo-500 focus:outline-none focus:ring-indigo-500'
+            className='dark:bg-[#1F2937] dark:border-gray-100 dark:text-gray-300 text-indigo-500 w-full appearance-none rounded-md border border-indigo-200 px-3 py-2 
+            focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:focus:border-gray-300 dark:focus:ring-gray-300'
           />
         </div>
       ) : null}
@@ -50,8 +50,8 @@ export default function Input({
             id={name}
             required={required}
             {...register}
-            className='text-indigo-500 w-full appearance-none rounded-md border border-indigo-200 px-3 py-2 
-            focus:border-indigo-500 focus:outline-none focus:ring-indigo-500'
+            className='dark:bg-[#1F2937] dark:border-gray-100 dark:text-gray-300 text-indigo-500 w-full appearance-none rounded-md border border-indigo-200 px-3 py-2 
+            focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:focus:border-gray-300 dark:focus:ring-gray-300'
           />
         </div>
       ) : null}
@@ -62,8 +62,8 @@ export default function Input({
             id={name}
             required={required}
             {...register}
-            className='text-indigo-500 w-full appearance-none rounded-md border border-indigo-200 px-3 py-2 
-            focus:border-indigo-500 focus:outline-none focus:ring-indigo-500'
+            className='dark:bg-[#1F2937] dark:border-gray-100 dark:text-gray-300 text-indigo-500 w-full appearance-none rounded-md border border-indigo-200 px-3 py-2 
+            focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:focus:border-gray-300 dark:focus:ring-gray-300'
           />
           <button
             type='button'

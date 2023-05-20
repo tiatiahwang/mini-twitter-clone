@@ -61,22 +61,20 @@ const TweetItem = (tweet: TweetProps) => {
           />
           <span className='text-sm text-gray-500'>
             {tweet.user.name} ·{' '}
-            <span className='text-xs'>
-              {useTimeFormat(tweet.createdAt)}
-            </span>
+            {useTimeFormat(tweet.createdAt)}
           </span>
         </div>
         <Link href={`/tweets/${tweet.id}`}>
           <>
             {/* 트윗 내용 */}
-            <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600'>
+            <div className='text-base whitespace-pre leading-relaxed cursor-pointer hover:text-indigo-600 dark:hover:text-gray-400'>
               {tweet.contents}
             </div>
             {/* 사진 링크 */}
             {tweet.url !== null ? (
               <img
                 src={tweet.url}
-                className='w-full h-[300px] object-center cursor-pointer rounded-md border border-indigo-100'
+                className='w-full h-[300px] object-center cursor-pointer rounded-md border border-indigo-100 dark:border-gray-400'
               />
             ) : null}
           </>
@@ -128,7 +126,7 @@ const TweetItem = (tweet: TweetProps) => {
           </div>
         </div>
       </div>
-      <div className='border-b-[1px] border-indigo-100' />
+      <div className='border-b-[1px] border-indigo-100 dark:border-gray-400' />
     </div>
   );
 };

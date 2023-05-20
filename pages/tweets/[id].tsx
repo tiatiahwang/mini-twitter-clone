@@ -68,9 +68,7 @@ const TweetDetail = () => {
           />
           <span className='text-sm text-gray-500'>
             {data?.tweet?.user?.name} ·{' '}
-            <span className='text-xs'>
-              {useTimeFormat(data?.tweet?.createdAt!)}
-            </span>
+            {useTimeFormat(data?.tweet?.createdAt!)}
           </span>
         </div>
         {/* 트윗 내용 */}

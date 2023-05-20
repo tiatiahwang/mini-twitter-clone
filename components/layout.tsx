@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { cls } from '../libs/client/utils';
 import NavBar from './navbar';
+import ToggleMode from './toggle-mode';
 
 interface LayoutProps {
   title?: string;
@@ -33,7 +33,7 @@ export default function Layout({
           {canGoBack ? (
             <button
               onClick={onClick}
-              className='text-indigo-500'
+              className='text-indigo-500 dark:text-gray-500'
             >
               <svg
                 className='h-6 w-6'
@@ -51,17 +51,20 @@ export default function Layout({
               </svg>
             </button>
           ) : null}
-          {title ? (
-            <span
-              className={cls(
-                'text-4xl text-indigo-500 font-bold',
-                canGoBack ? 'pl-4' : '',
-                '',
-              )}
-            >
-              {title}
-            </span>
-          ) : null}
+          <div className='flex justify-between'>
+            {title ? (
+              <span
+                className={cls(
+                  'text-4xl text-indigo-500 dark:text-gray-300 font-bold',
+                  canGoBack ? 'pl-4' : '',
+                  '',
+                )}
+              >
+                {title}
+              </span>
+            ) : null}
+            <ToggleMode />
+          </div>
         </div>
         {children}
       </div>
